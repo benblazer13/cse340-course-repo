@@ -1,5 +1,8 @@
+DROP TABLE IF EXISTS project_category;
 DROP TABLE IF EXISTS service_project;
 DROP TABLE IF EXISTS organization;
+DROP TABLE IF EXISTS category;
+
 
 
 -- ========================================
@@ -58,6 +61,57 @@ VALUES
 (3, 'Holiday Meal Packing', 'Pack holiday meal boxes for families.', 'Regional Food Bank', '2026-12-19'),
 (3, 'Blanket Tying Night', 'Make fleece tie blankets for the shelter.', 'Community Center', '2027-01-10'),
 (3, 'Hygiene Kit Assembly', 'Assemble toiletry kits for local shelters.', 'Downtown Mission', '2027-02-06');
+
+-- ========================================
+-- Category Table
+-- ========================================
+CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    name        VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- ========================================
+-- Project-Category Junction Table
+-- ========================================
+CREATE TABLE project_category (
+    project_id  INTEGER NOT NULL
+                REFERENCES service_project(project_id) ON DELETE CASCADE,
+    category_id INTEGER NOT NULL
+                REFERENCES category(category_id) ON DELETE CASCADE,
+    PRIMARY KEY (project_id, category_id)
+);
+
+-- ========================================
+-- Sample data: Categories
+-- ========================================
+INSERT INTO category (name)
+VALUES
+('Construction & Repair'),   -- 1
+('Environment & Gardening'), -- 2
+('Food Security'),           -- 3
+('Education'),               -- 4
+('Community Support');       -- 5
+
+-- ========================================
+-- Sample data: Project-Category links
+-- ========================================
+INSERT INTO project_category (project_id, category_id)
+VALUES
+(1, 1),                  -- Playground Rebuild
+(2, 1), (2, 5),          -- Wheelchair Ramp Install
+(3, 1),                  -- Community Center Repaint
+(4, 1),                  -- Bus Shelter Repairs
+(5, 1), (5, 2),          -- Solar Lighting Project
+(6, 1), (6, 2), (6, 4),  -- Raised Bed Build
+(7, 2), (7, 3),          -- Fall Harvest Day
+(8, 2), (8, 4),          -- Composting Workshop
+(9, 2), (9, 4),          -- Seed Starting Clinic
+(10, 2),                 -- Community Garden Cleanup
+(11, 3), (11, 5),        -- Soup Kitchen Shift
+(12, 5),                 -- Coat Drive Sorting
+(13, 3),                 -- Holiday Meal Packing
+(14, 5),                 -- Blanket Tying Night
+(15, 5);                 -- Hygiene Kit Assembly
 
 
 -- end of setup
