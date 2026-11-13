@@ -1,4 +1,5 @@
 import { getProjectDetails, getUpcomingProjects } from '../models/projects.js';
+import { getCategoriesByProjectId } from '../models/categories.js';
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
@@ -15,7 +16,8 @@ const showProjectDetailsPage = async (req, res) => {
         return res.status(404).render('errors/404', { title: 'Page Not Found' });
     }
 
-    res.render('project', { title: project.title, project });
+    const categories = await getCategoriesByProjectId(req.params.id);
+    res.render('project', { title: project.title, project, categories });
 };
 
 export { showProjectsPage, showProjectDetailsPage };

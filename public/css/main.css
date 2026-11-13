@@ -152,6 +152,42 @@ body > main > main > ul strong {
     color: var(--color-brand-dark);
 }
 
+.category-tags {
+    margin: 0.75rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+}
+
+.category-tags li {
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.category-tags a {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid #145a43;
+    border-radius: 999px;
+    background: #e7f2eb;
+    color: #0c4030;
+    font-size: 0.9rem;
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.category-tags a:hover {
+    background: #d3e8d9;
+    text-decoration: underline;
+}
+
+.category-tags a:focus-visible {
+    outline-color: #0c4030;
+}
+
 .main-logo {
     display: block;
     width: min(100%, 560px);
