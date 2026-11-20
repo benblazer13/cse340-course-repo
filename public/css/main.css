@@ -74,7 +74,7 @@ a:focus-visible {
     outline-offset: 3px;
 }
 
-body > main {
+body>main {
     width: min(100% - 2.5rem, 1000px);
     flex: 1;
     margin: clamp(2rem, 6vw, 4.5rem) auto;
@@ -110,11 +110,43 @@ p {
     color: var(--color-muted);
 }
 
-body > main > p {
+/* Flash message styles */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert.warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.alert.info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+body>main>p {
     font-size: 1.1rem;
 }
 
-body > main > ul {
+body>main>ul {
     margin: 1.5rem 0 0;
     padding: 0;
     display: grid;
@@ -123,7 +155,7 @@ body > main > ul {
     list-style: none;
 }
 
-body > main > ul > li {
+body>main>ul>li {
     min-width: 0;
     padding: 1.25rem 1.4rem;
     border: 1px solid var(--color-border);
@@ -133,13 +165,13 @@ body > main > ul > li {
     font-size: 1.05rem;
 }
 
-body > main > main > ul > li {
+body>main>main>ul>li {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-body > main > main > ul img {
+body>main>main>ul img {
     width: 4.25rem;
     height: 4.25rem;
     flex: 0 0 4.25rem;
@@ -148,7 +180,7 @@ body > main > main > ul img {
     background: #ffffff;
 }
 
-body > main > main > ul strong {
+body>main>main>ul strong {
     color: var(--color-brand-dark);
 }
 
@@ -226,20 +258,21 @@ footer p {
         font-size: 0.9rem;
     }
 
-    body > main {
+    body>main {
         width: calc(100% - 1.5rem);
         margin: 1.25rem auto;
         padding: 1.5rem 1.25rem;
         border-radius: 1rem;
     }
 
-    body > main > main > ul > li {
+    body>main>main>ul>li {
         align-items: flex-start;
         flex-wrap: wrap;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
