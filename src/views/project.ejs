@@ -6,6 +6,7 @@
     <p>Date: <%= new Date(project.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %></p>
     <p>Location: <%= project.location %></p>
     <p>Organization: <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></p>
+    <p><a href="/assign-categories/<%= project.project_id %>">Edit Categories</a></p>
 
     <% if (categories.length > 0) { %>
         <h2>Categories</h2>
