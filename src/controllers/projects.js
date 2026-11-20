@@ -1,4 +1,4 @@
-import { getProjectDetails, getUpcomingProjects, createProject } from '../models/projects.js';
+import { getProjectDetails, getUpcomingProjects, createProject, updateProject } from '../models/projects.js';
 import { getCategoriesByProjectId } from '../models/categories.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
@@ -58,6 +58,16 @@ const showNewProjectForm = async (req, res) => {
     res.render('new-project', { title: 'Add New Service Project', organizations });
 };
 
+const showEditProjectForm = async (req, res) => {
+    const project = await getProjectDetails(req.params.id);
+    if (!project) {
+        return res.status(404).render('errors/404', { title: 'Page Not Found' });
+    }
+
+    const organizations = await getAllOrganizations();
+    res.render('edit-project', { title: 'Edit Service Project', project, organizations });
+};
+
 const processNewProjectForm = async (req, res) => {
     const results = validationResult(req);
     if (!results.isEmpty()) {
@@ -81,10 +91,42 @@ const processNewProjectForm = async (req, res) => {
     }
 };
 
+const processEditProjectForm = async (req, res) => {
+    const results = validationResult(req);
+    if (!results.isEmpty()) {
+        results.array().forEach((error) => {
+            req.flash('error', error.msg);
+        });
+
+        return res.redirect(`/edit-project/${req.params.id}`);
+    }
+
+    const { title, description, location, date, organizationId } = req.body;
+
+    try {
+        const projectId = await updateProject(
+            req.params.id,
+            title,
+            description,
+            location,
+            date,
+            organizationId
+        );
+        req.flash('success', 'Service project updated successfully!');
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'There was an error updating the service project.');
+        res.redirect(`/edit-project/${req.params.id}`);
+    }
+};
+
 export {
     showProjectsPage,
     showProjectDetailsPage,
     showNewProjectForm,
+    showEditProjectForm,
     processNewProjectForm,
+    processEditProjectForm,
     projectValidation
 };
