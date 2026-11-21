@@ -29,6 +29,8 @@ import { testErrorPage } from './controllers/errors.js';
 
 const router = express.Router();
 
+router.get('/favicon.ico', (req, res) => res.status(204).end());
+
 router.get('/', showHomePage);
 router.get('/organizations', showOrganizationsPage);
 router.get('/new-organization', showNewOrganizationForm);
